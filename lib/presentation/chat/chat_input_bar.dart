@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:voicegpt/shared/providers.dart';
 
 import '../../core/constants.dart';
 
@@ -16,6 +17,10 @@ class ChatInputBar extends HookConsumerWidget {
         messageController, () => messageController.text.trim().isEmpty);
 
     void onSendMessage() {
+      ref.read(chatMessageProvider.notifier).state = [
+        ...ref.read(chatMessageProvider),
+        messageController.text
+      ];
       messageController.clear();
     }
 
@@ -40,7 +45,7 @@ class ChatInputBar extends HookConsumerWidget {
               child: !emptyMessage
                   ? InkWell(
                       borderRadius: BorderRadius.circular(100.0),
-                      onTap: () {},
+                      onTap: onSendMessage,
                       child: const Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: 8, horizontal: 7.5),
