@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:voicegpt/infrastructure/models/message_model.dart';
 
 class ChatItem extends StatelessWidget {
   const ChatItem({super.key, required this.message});
-  final String message;
+  final MessageModel message;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,9 @@ class ChatItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: message.role == 'user'
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -31,7 +34,7 @@ class ChatItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6.0),
                       color: Colors.blue,
                     ),
-                    child: Text(message),
+                    child: Text(message.content),
                   ),
                 ],
               ),
