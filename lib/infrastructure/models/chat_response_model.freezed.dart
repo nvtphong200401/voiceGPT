@@ -21,10 +21,10 @@ ChatResponseModel _$ChatResponseModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ChatResponseModel {
   String get id => throw _privateConstructorUsedError;
-  String get object => throw _privateConstructorUsedError;
-  String get created => throw _privateConstructorUsedError;
+  String? get object => throw _privateConstructorUsedError;
+  int? get created => throw _privateConstructorUsedError;
   UsageModel get usage => throw _privateConstructorUsedError;
-  List<ChoiceModel> get choice => throw _privateConstructorUsedError;
+  List<ChoiceModel> get choices => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,10 +40,10 @@ abstract class $ChatResponseModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String object,
-      String created,
+      String? object,
+      int? created,
       UsageModel usage,
-      List<ChoiceModel> choice});
+      List<ChoiceModel> choices});
 
   $UsageModelCopyWith<$Res> get usage;
 }
@@ -62,31 +62,31 @@ class _$ChatResponseModelCopyWithImpl<$Res, $Val extends ChatResponseModel>
   @override
   $Res call({
     Object? id = null,
-    Object? object = null,
-    Object? created = null,
+    Object? object = freezed,
+    Object? created = freezed,
     Object? usage = null,
-    Object? choice = null,
+    Object? choices = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      object: null == object
+      object: freezed == object
           ? _value.object
           : object // ignore: cast_nullable_to_non_nullable
-              as String,
-      created: null == created
+              as String?,
+      created: freezed == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       usage: null == usage
           ? _value.usage
           : usage // ignore: cast_nullable_to_non_nullable
               as UsageModel,
-      choice: null == choice
-          ? _value.choice
-          : choice // ignore: cast_nullable_to_non_nullable
+      choices: null == choices
+          ? _value.choices
+          : choices // ignore: cast_nullable_to_non_nullable
               as List<ChoiceModel>,
     ) as $Val);
   }
@@ -110,10 +110,10 @@ abstract class _$$_ChatResponseModelCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String object,
-      String created,
+      String? object,
+      int? created,
       UsageModel usage,
-      List<ChoiceModel> choice});
+      List<ChoiceModel> choices});
 
   @override
   $UsageModelCopyWith<$Res> get usage;
@@ -131,31 +131,31 @@ class __$$_ChatResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? object = null,
-    Object? created = null,
+    Object? object = freezed,
+    Object? created = freezed,
     Object? usage = null,
-    Object? choice = null,
+    Object? choices = null,
   }) {
     return _then(_$_ChatResponseModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      object: null == object
+      object: freezed == object
           ? _value.object
           : object // ignore: cast_nullable_to_non_nullable
-              as String,
-      created: null == created
+              as String?,
+      created: freezed == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       usage: null == usage
           ? _value.usage
           : usage // ignore: cast_nullable_to_non_nullable
               as UsageModel,
-      choice: null == choice
-          ? _value._choice
-          : choice // ignore: cast_nullable_to_non_nullable
+      choices: null == choices
+          ? _value._choices
+          : choices // ignore: cast_nullable_to_non_nullable
               as List<ChoiceModel>,
     ));
   }
@@ -166,11 +166,11 @@ class __$$_ChatResponseModelCopyWithImpl<$Res>
 class _$_ChatResponseModel extends _ChatResponseModel {
   const _$_ChatResponseModel(
       {required this.id,
-      required this.object,
-      required this.created,
+      this.object,
+      this.created,
       required this.usage,
-      required final List<ChoiceModel> choice})
-      : _choice = choice,
+      required final List<ChoiceModel> choices})
+      : _choices = choices,
         super._();
 
   factory _$_ChatResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -179,22 +179,22 @@ class _$_ChatResponseModel extends _ChatResponseModel {
   @override
   final String id;
   @override
-  final String object;
+  final String? object;
   @override
-  final String created;
+  final int? created;
   @override
   final UsageModel usage;
-  final List<ChoiceModel> _choice;
+  final List<ChoiceModel> _choices;
   @override
-  List<ChoiceModel> get choice {
-    if (_choice is EqualUnmodifiableListView) return _choice;
+  List<ChoiceModel> get choices {
+    if (_choices is EqualUnmodifiableListView) return _choices;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_choice);
+    return EqualUnmodifiableListView(_choices);
   }
 
   @override
   String toString() {
-    return 'ChatResponseModel(id: $id, object: $object, created: $created, usage: $usage, choice: $choice)';
+    return 'ChatResponseModel(id: $id, object: $object, created: $created, usage: $usage, choices: $choices)';
   }
 
   @override
@@ -206,13 +206,13 @@ class _$_ChatResponseModel extends _ChatResponseModel {
             (identical(other.object, object) || other.object == object) &&
             (identical(other.created, created) || other.created == created) &&
             (identical(other.usage, usage) || other.usage == usage) &&
-            const DeepCollectionEquality().equals(other._choice, _choice));
+            const DeepCollectionEquality().equals(other._choices, _choices));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, object, created, usage,
-      const DeepCollectionEquality().hash(_choice));
+      const DeepCollectionEquality().hash(_choices));
 
   @JsonKey(ignore: true)
   @override
@@ -232,10 +232,10 @@ class _$_ChatResponseModel extends _ChatResponseModel {
 abstract class _ChatResponseModel extends ChatResponseModel {
   const factory _ChatResponseModel(
       {required final String id,
-      required final String object,
-      required final String created,
+      final String? object,
+      final int? created,
       required final UsageModel usage,
-      required final List<ChoiceModel> choice}) = _$_ChatResponseModel;
+      required final List<ChoiceModel> choices}) = _$_ChatResponseModel;
   const _ChatResponseModel._() : super._();
 
   factory _ChatResponseModel.fromJson(Map<String, dynamic> json) =
@@ -244,13 +244,13 @@ abstract class _ChatResponseModel extends ChatResponseModel {
   @override
   String get id;
   @override
-  String get object;
+  String? get object;
   @override
-  String get created;
+  int? get created;
   @override
   UsageModel get usage;
   @override
-  List<ChoiceModel> get choice;
+  List<ChoiceModel> get choices;
   @override
   @JsonKey(ignore: true)
   _$$_ChatResponseModelCopyWith<_$_ChatResponseModel> get copyWith =>

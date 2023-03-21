@@ -8,14 +8,14 @@ part of 'usage_model.dart';
 
 _$_UssageModel _$$_UssageModelFromJson(Map<String, dynamic> json) =>
     _$_UssageModel(
-      promptTokens: json['promptTokens'] as int,
-      completionTokens: json['completionTokens'] as int,
-      totalTokens: json['totalTokens'] as int,
+      promptTokens: json['prompt_tokens'] as int?,
+      completionTokens: json['completion_tokens'] as int?,
+      totalTokens: json['total_tokens'] as int?,
     );
 
 Map<String, dynamic> _$$_UssageModelToJson(_$_UssageModel instance) =>
     <String, dynamic>{
-      'promptTokens': instance.promptTokens,
-      'completionTokens': instance.completionTokens,
-      'totalTokens': instance.totalTokens,
+      'prompt_tokens': instance.promptTokens,
+      'completion_tokens': instance.completionTokens,
+      'total_tokens': instance.totalTokens,
     };

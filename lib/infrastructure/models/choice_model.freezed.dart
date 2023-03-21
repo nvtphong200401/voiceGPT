@@ -20,7 +20,7 @@ ChoiceModel _$ChoiceModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ChoiceModel {
-  int get index => throw _privateConstructorUsedError;
+  int? get index => throw _privateConstructorUsedError;
   MessageModel get message => throw _privateConstructorUsedError;
   String get finishReason => throw _privateConstructorUsedError;
 
@@ -36,7 +36,7 @@ abstract class $ChoiceModelCopyWith<$Res> {
           ChoiceModel value, $Res Function(ChoiceModel) then) =
       _$ChoiceModelCopyWithImpl<$Res, ChoiceModel>;
   @useResult
-  $Res call({int index, MessageModel message, String finishReason});
+  $Res call({int? index, MessageModel message, String finishReason});
 
   $MessageModelCopyWith<$Res> get message;
 }
@@ -54,15 +54,15 @@ class _$ChoiceModelCopyWithImpl<$Res, $Val extends ChoiceModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? index = freezed,
     Object? message = null,
     Object? finishReason = null,
   }) {
     return _then(_value.copyWith(
-      index: null == index
+      index: freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -91,7 +91,7 @@ abstract class _$$_ChoiceModelCopyWith<$Res>
       __$$_ChoiceModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int index, MessageModel message, String finishReason});
+  $Res call({int? index, MessageModel message, String finishReason});
 
   @override
   $MessageModelCopyWith<$Res> get message;
@@ -108,15 +108,15 @@ class __$$_ChoiceModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? index = freezed,
     Object? message = null,
     Object? finishReason = null,
   }) {
     return _then(_$_ChoiceModel(
-      index: null == index
+      index: freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -130,17 +130,18 @@ class __$$_ChoiceModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_ChoiceModel extends _ChoiceModel {
   const _$_ChoiceModel(
-      {required this.index, required this.message, required this.finishReason})
+      {this.index, required this.message, required this.finishReason})
       : super._();
 
   factory _$_ChoiceModel.fromJson(Map<String, dynamic> json) =>
       _$$_ChoiceModelFromJson(json);
 
   @override
-  final int index;
+  final int? index;
   @override
   final MessageModel message;
   @override
@@ -182,7 +183,7 @@ class _$_ChoiceModel extends _ChoiceModel {
 
 abstract class _ChoiceModel extends ChoiceModel {
   const factory _ChoiceModel(
-      {required final int index,
+      {final int? index,
       required final MessageModel message,
       required final String finishReason}) = _$_ChoiceModel;
   const _ChoiceModel._() : super._();
@@ -191,7 +192,7 @@ abstract class _ChoiceModel extends ChoiceModel {
       _$_ChoiceModel.fromJson;
 
   @override
-  int get index;
+  int? get index;
   @override
   MessageModel get message;
   @override

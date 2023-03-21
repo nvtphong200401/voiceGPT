@@ -8,11 +8,11 @@ part 'choice_model.g.dart';
 @freezed
 class ChoiceModel with _$ChoiceModel {
   const ChoiceModel._();
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ChoiceModel({
-    required int index,
+    int? index,
     required MessageModel message,
     required String finishReason,
   }) = _ChoiceModel;
-  factory ChoiceModel.fromJson(Map<String, dynamic> json) =>
-      _$ChoiceModelFromJson(json);
+  factory ChoiceModel.fromJson(Map<String, dynamic> json) => _$ChoiceModelFromJson(json);
 }

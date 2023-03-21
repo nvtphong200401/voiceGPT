@@ -20,9 +20,9 @@ UsageModel _$UsageModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UsageModel {
-  int get promptTokens => throw _privateConstructorUsedError;
-  int get completionTokens => throw _privateConstructorUsedError;
-  int get totalTokens => throw _privateConstructorUsedError;
+  int? get promptTokens => throw _privateConstructorUsedError;
+  int? get completionTokens => throw _privateConstructorUsedError;
+  int? get totalTokens => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $UsageModelCopyWith<$Res> {
           UsageModel value, $Res Function(UsageModel) then) =
       _$UsageModelCopyWithImpl<$Res, UsageModel>;
   @useResult
-  $Res call({int promptTokens, int completionTokens, int totalTokens});
+  $Res call({int? promptTokens, int? completionTokens, int? totalTokens});
 }
 
 /// @nodoc
@@ -52,23 +52,23 @@ class _$UsageModelCopyWithImpl<$Res, $Val extends UsageModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? promptTokens = null,
-    Object? completionTokens = null,
-    Object? totalTokens = null,
+    Object? promptTokens = freezed,
+    Object? completionTokens = freezed,
+    Object? totalTokens = freezed,
   }) {
     return _then(_value.copyWith(
-      promptTokens: null == promptTokens
+      promptTokens: freezed == promptTokens
           ? _value.promptTokens
           : promptTokens // ignore: cast_nullable_to_non_nullable
-              as int,
-      completionTokens: null == completionTokens
+              as int?,
+      completionTokens: freezed == completionTokens
           ? _value.completionTokens
           : completionTokens // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalTokens: null == totalTokens
+              as int?,
+      totalTokens: freezed == totalTokens
           ? _value.totalTokens
           : totalTokens // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -81,7 +81,7 @@ abstract class _$$_UssageModelCopyWith<$Res>
       __$$_UssageModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int promptTokens, int completionTokens, int totalTokens});
+  $Res call({int? promptTokens, int? completionTokens, int? totalTokens});
 }
 
 /// @nodoc
@@ -95,45 +95,44 @@ class __$$_UssageModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? promptTokens = null,
-    Object? completionTokens = null,
-    Object? totalTokens = null,
+    Object? promptTokens = freezed,
+    Object? completionTokens = freezed,
+    Object? totalTokens = freezed,
   }) {
     return _then(_$_UssageModel(
-      promptTokens: null == promptTokens
+      promptTokens: freezed == promptTokens
           ? _value.promptTokens
           : promptTokens // ignore: cast_nullable_to_non_nullable
-              as int,
-      completionTokens: null == completionTokens
+              as int?,
+      completionTokens: freezed == completionTokens
           ? _value.completionTokens
           : completionTokens // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalTokens: null == totalTokens
+              as int?,
+      totalTokens: freezed == totalTokens
           ? _value.totalTokens
           : totalTokens // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_UssageModel extends _UssageModel {
   const _$_UssageModel(
-      {required this.promptTokens,
-      required this.completionTokens,
-      required this.totalTokens})
+      {this.promptTokens, this.completionTokens, this.totalTokens})
       : super._();
 
   factory _$_UssageModel.fromJson(Map<String, dynamic> json) =>
       _$$_UssageModelFromJson(json);
 
   @override
-  final int promptTokens;
+  final int? promptTokens;
   @override
-  final int completionTokens;
+  final int? completionTokens;
   @override
-  final int totalTokens;
+  final int? totalTokens;
 
   @override
   String toString() {
@@ -174,20 +173,20 @@ class _$_UssageModel extends _UssageModel {
 
 abstract class _UssageModel extends UsageModel {
   const factory _UssageModel(
-      {required final int promptTokens,
-      required final int completionTokens,
-      required final int totalTokens}) = _$_UssageModel;
+      {final int? promptTokens,
+      final int? completionTokens,
+      final int? totalTokens}) = _$_UssageModel;
   const _UssageModel._() : super._();
 
   factory _UssageModel.fromJson(Map<String, dynamic> json) =
       _$_UssageModel.fromJson;
 
   @override
-  int get promptTokens;
+  int? get promptTokens;
   @override
-  int get completionTokens;
+  int? get completionTokens;
   @override
-  int get totalTokens;
+  int? get totalTokens;
   @override
   @JsonKey(ignore: true)
   _$$_UssageModelCopyWith<_$_UssageModel> get copyWith =>

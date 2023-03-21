@@ -10,10 +10,10 @@ class ChatResponseModel with _$ChatResponseModel {
   const ChatResponseModel._();
   const factory ChatResponseModel({
     required String id,
-    required String object,
-    required String created,
+    String? object,
+    int? created,
     required UsageModel usage,
-    required List<ChoiceModel> choice,
+    required List<ChoiceModel> choices,
   }) = _ChatResponseModel;
   factory ChatResponseModel.fromJson(Map<String, dynamic> json) =>
       _$ChatResponseModelFromJson(json);
