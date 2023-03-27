@@ -46,6 +46,7 @@ dependencies:
   dartz: ^0.10.1
   markdown_widget: ^2.1.0
   speech_to_text: ^6.1.1
+  flutter_tts: ^3.6.3
 
 dev_dependencies:
   flutter_test:

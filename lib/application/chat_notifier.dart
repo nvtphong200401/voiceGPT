@@ -30,7 +30,9 @@ class ChatNotifier extends StateNotifier<ChatState> {
     final res = await _chatRepository.sendMessage(messages);
     state = ChatState.data(messages: [
       ...messages,
-      res.fold((l) => const MessageModel(role: 'assistant', content: 'An error occur'), (r) => r),
+      res.fold((l) => const MessageModel(role: 'assistant', content: 'An error occur'), (r) {
+        return r;
+      }),
     ]);
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:voicegpt/application/shared/providers.dart';
 
 class CurveWave extends Curve {
   const CurveWave();
@@ -43,7 +44,7 @@ class CirclePainter extends CustomPainter {
   bool shouldRepaint(CirclePainter oldDelegate) => true;
 }
 
-class RipplesAnimation extends StatefulHookWidget {
+class RipplesAnimation extends StatefulHookConsumerWidget {
   const RipplesAnimation(
       {Key? key,
       this.size = 20.0,
@@ -57,28 +58,34 @@ class RipplesAnimation extends StatefulHookWidget {
   final Widget child;
   final AnimationController controller;
   final void Function(bool)? onPressed;
+
   @override
-  _RipplesAnimationState createState() => _RipplesAnimationState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _RipplesAnimationState();
+  // @override
+  // _RipplesAnimationState createState() => _RipplesAnimationState();
 }
 
-class _RipplesAnimationState extends State<RipplesAnimation> {
+class _RipplesAnimationState extends ConsumerState<RipplesAnimation> {
   @override
   Widget build(BuildContext context) {
-    final isAnimating = useState(false);
+    final isAnimating =
+        ref.watch(voiceNotifierProvider).when(stop: () => false, listening: (data) => true);
 
     return GestureDetector(
       onTap: () {
-        if (isAnimating.value) {
+        if (isAnimating) {
           widget.controller.stop();
-          isAnimating.value = false;
+          ref.read(voiceNotifierProvider.notifier).stop();
         } else {
           widget.controller.repeat();
-          isAnimating.value = true;
+          ref
+              .read(voiceNotifierProvider.notifier)
+              .initialize(ref.read(settingStateProvider.select((value) => value.language)));
         }
-        widget.onPressed?.call(isAnimating.value);
+        // widget.onPressed?.call(isAnimating.value);
       },
       child: CustomPaint(
-        painter: isAnimating.value
+        painter: isAnimating
             ? CirclePainter(
                 widget.controller,
                 color: widget.color,

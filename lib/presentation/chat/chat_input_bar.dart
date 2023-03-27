@@ -26,10 +26,8 @@ class ChatInputBar extends HookConsumerWidget {
         if (focusNode.hasFocus) {
           Future.delayed(const Duration(milliseconds: 300), () {
             log('scroll max');
-            scrollController.animateTo(
-                scrollController.position.maxScrollExtent,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOut);
+            scrollController.animateTo(scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
           });
         }
       }
@@ -40,18 +38,17 @@ class ChatInputBar extends HookConsumerWidget {
 
     void onSendMessage() {
       if (messageController.text.isEmpty) return;
-      ref
-          .read(chatNotifierProvider.notifier)
-          .sendMessage(messageController.text);
+      ref.read(chatNotifierProvider.notifier).sendMessage(messageController.text);
       messageController.clear();
     }
 
     ref.listen<VoiceState>(voiceNotifierProvider, (prev, next) {
-      next.when(
-          stop: () {},
-          listening: (data) {
-            messageController.text = data;
-          });
+      log('$prev - $next');
+      next.when(stop: () {
+        Future.delayed(const Duration(milliseconds: 200), onSendMessage);
+      }, listening: (data) {
+        messageController.text = data;
+      });
     });
 
     return Material(
@@ -65,18 +62,23 @@ class ChatInputBar extends HookConsumerWidget {
             // child:
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 60),
-              child: TextFormField(
-                focusNode: focusNode,
-                onFieldSubmitted: (value) {
-                  onSendMessage.call();
-                },
-                controller: messageController,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration.collapsed(
-                  hintText: "How can I help you",
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-              ),
+              child: Consumer(builder: (context, ref, child) {
+                return TextFormField(
+                  focusNode: focusNode,
+                  enabled: ref
+                      .watch(voiceNotifierProvider)
+                      .when(stop: () => true, listening: (data) => false),
+                  onFieldSubmitted: (value) {
+                    onSendMessage.call();
+                  },
+                  controller: messageController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration.collapsed(
+                    hintText: "How can I help you",
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                );
+              }),
             ),
             // ),
             Positioned(
@@ -85,7 +87,10 @@ class ChatInputBar extends HookConsumerWidget {
               right: 0,
               child: Padding(
                 padding: const EdgeInsets.only(left: 7.5),
-                child: VoiceItem(messageController: messageController),
+                child: VoiceItem(
+                  messageController: messageController,
+                  onSendMessage: onSendMessage,
+                ),
               ),
             )
           ],

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,25 +6,23 @@ import 'package:voicegpt/application/shared/providers.dart';
 import '../animation/ripple_animation.dart';
 
 class VoiceItem extends HookConsumerWidget {
-  const VoiceItem(
-      {super.key, required this.messageController, this.onSendMessage});
+  const VoiceItem({super.key, required this.messageController, this.onSendMessage});
   final TextEditingController messageController;
   final void Function()? onSendMessage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final voiceAnimation =
-        useAnimationController(duration: const Duration(seconds: 2));
+    final voiceAnimation = useAnimationController(duration: const Duration(seconds: 2));
 
-    final listening = ref.watch(voiceNotifierProvider).when(
-        stop: () => false,
-        listening: (data) {
-          log('phongdz $data');
-          messageController.text = data;
-          return true;
-        });
-    final bool emptyMessage = useListenableSelector(
-        messageController, () => messageController.text.trim().isEmpty);
+    final listening = ref.watch(voiceNotifierProvider).when(stop: () {
+      return false;
+    }, listening: (data) {
+      messageController.text = data;
+      return true;
+    });
+
+    final bool emptyMessage =
+        useListenableSelector(messageController, () => messageController.text.trim().isEmpty);
 
     return !emptyMessage && !listening
         ? InkWell(
@@ -41,13 +37,6 @@ class VoiceItem extends HookConsumerWidget {
             child: buildIcon(Icons.mic),
             controller: voiceAnimation,
             size: 20,
-            onPressed: (animating) {
-              if (animating) {
-                ref.read(voiceNotifierProvider.notifier).initialize();
-              } else {
-                ref.read(voiceNotifierProvider.notifier).stop();
-              }
-            },
           );
   }
 

@@ -37,20 +37,20 @@ mixin _$VoiceState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Stop value) stop,
-    required TResult Function(_Listening value) listening,
+    required TResult Function(VoiceStop value) stop,
+    required TResult Function(VoiceListening value) listening,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Stop value)? stop,
-    TResult? Function(_Listening value)? listening,
+    TResult? Function(VoiceStop value)? stop,
+    TResult? Function(VoiceListening value)? listening,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Stop value)? stop,
-    TResult Function(_Listening value)? listening,
+    TResult Function(VoiceStop value)? stop,
+    TResult Function(VoiceListening value)? listening,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,23 +75,25 @@ class _$VoiceStateCopyWithImpl<$Res, $Val extends VoiceState>
 }
 
 /// @nodoc
-abstract class _$$_StopCopyWith<$Res> {
-  factory _$$_StopCopyWith(_$_Stop value, $Res Function(_$_Stop) then) =
-      __$$_StopCopyWithImpl<$Res>;
+abstract class _$$VoiceStopCopyWith<$Res> {
+  factory _$$VoiceStopCopyWith(
+          _$VoiceStop value, $Res Function(_$VoiceStop) then) =
+      __$$VoiceStopCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_StopCopyWithImpl<$Res>
-    extends _$VoiceStateCopyWithImpl<$Res, _$_Stop>
-    implements _$$_StopCopyWith<$Res> {
-  __$$_StopCopyWithImpl(_$_Stop _value, $Res Function(_$_Stop) _then)
+class __$$VoiceStopCopyWithImpl<$Res>
+    extends _$VoiceStateCopyWithImpl<$Res, _$VoiceStop>
+    implements _$$VoiceStopCopyWith<$Res> {
+  __$$VoiceStopCopyWithImpl(
+      _$VoiceStop _value, $Res Function(_$VoiceStop) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Stop extends _Stop {
-  const _$_Stop() : super._();
+class _$VoiceStop extends VoiceStop {
+  const _$VoiceStop() : super._();
 
   @override
   String toString() {
@@ -101,7 +103,7 @@ class _$_Stop extends _Stop {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Stop);
+        (other.runtimeType == runtimeType && other is _$VoiceStop);
   }
 
   @override
@@ -141,8 +143,8 @@ class _$_Stop extends _Stop {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Stop value) stop,
-    required TResult Function(_Listening value) listening,
+    required TResult Function(VoiceStop value) stop,
+    required TResult Function(VoiceListening value) listening,
   }) {
     return stop(this);
   }
@@ -150,8 +152,8 @@ class _$_Stop extends _Stop {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Stop value)? stop,
-    TResult? Function(_Listening value)? listening,
+    TResult? Function(VoiceStop value)? stop,
+    TResult? Function(VoiceListening value)? listening,
   }) {
     return stop?.call(this);
   }
@@ -159,8 +161,8 @@ class _$_Stop extends _Stop {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Stop value)? stop,
-    TResult Function(_Listening value)? listening,
+    TResult Function(VoiceStop value)? stop,
+    TResult Function(VoiceListening value)? listening,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -170,26 +172,26 @@ class _$_Stop extends _Stop {
   }
 }
 
-abstract class _Stop extends VoiceState {
-  const factory _Stop() = _$_Stop;
-  const _Stop._() : super._();
+abstract class VoiceStop extends VoiceState {
+  const factory VoiceStop() = _$VoiceStop;
+  const VoiceStop._() : super._();
 }
 
 /// @nodoc
-abstract class _$$_ListeningCopyWith<$Res> {
-  factory _$$_ListeningCopyWith(
-          _$_Listening value, $Res Function(_$_Listening) then) =
-      __$$_ListeningCopyWithImpl<$Res>;
+abstract class _$$VoiceListeningCopyWith<$Res> {
+  factory _$$VoiceListeningCopyWith(
+          _$VoiceListening value, $Res Function(_$VoiceListening) then) =
+      __$$VoiceListeningCopyWithImpl<$Res>;
   @useResult
   $Res call({String data});
 }
 
 /// @nodoc
-class __$$_ListeningCopyWithImpl<$Res>
-    extends _$VoiceStateCopyWithImpl<$Res, _$_Listening>
-    implements _$$_ListeningCopyWith<$Res> {
-  __$$_ListeningCopyWithImpl(
-      _$_Listening _value, $Res Function(_$_Listening) _then)
+class __$$VoiceListeningCopyWithImpl<$Res>
+    extends _$VoiceStateCopyWithImpl<$Res, _$VoiceListening>
+    implements _$$VoiceListeningCopyWith<$Res> {
+  __$$VoiceListeningCopyWithImpl(
+      _$VoiceListening _value, $Res Function(_$VoiceListening) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -197,7 +199,7 @@ class __$$_ListeningCopyWithImpl<$Res>
   $Res call({
     Object? data = null,
   }) {
-    return _then(_$_Listening(
+    return _then(_$VoiceListening(
       null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -208,8 +210,8 @@ class __$$_ListeningCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Listening extends _Listening {
-  const _$_Listening(this.data) : super._();
+class _$VoiceListening extends VoiceListening {
+  const _$VoiceListening(this.data) : super._();
 
   @override
   final String data;
@@ -223,7 +225,7 @@ class _$_Listening extends _Listening {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Listening &&
+            other is _$VoiceListening &&
             (identical(other.data, data) || other.data == data));
   }
 
@@ -233,8 +235,8 @@ class _$_Listening extends _Listening {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ListeningCopyWith<_$_Listening> get copyWith =>
-      __$$_ListeningCopyWithImpl<_$_Listening>(this, _$identity);
+  _$$VoiceListeningCopyWith<_$VoiceListening> get copyWith =>
+      __$$VoiceListeningCopyWithImpl<_$VoiceListening>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -270,8 +272,8 @@ class _$_Listening extends _Listening {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Stop value) stop,
-    required TResult Function(_Listening value) listening,
+    required TResult Function(VoiceStop value) stop,
+    required TResult Function(VoiceListening value) listening,
   }) {
     return listening(this);
   }
@@ -279,8 +281,8 @@ class _$_Listening extends _Listening {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Stop value)? stop,
-    TResult? Function(_Listening value)? listening,
+    TResult? Function(VoiceStop value)? stop,
+    TResult? Function(VoiceListening value)? listening,
   }) {
     return listening?.call(this);
   }
@@ -288,8 +290,8 @@ class _$_Listening extends _Listening {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Stop value)? stop,
-    TResult Function(_Listening value)? listening,
+    TResult Function(VoiceStop value)? stop,
+    TResult Function(VoiceListening value)? listening,
     required TResult orElse(),
   }) {
     if (listening != null) {
@@ -299,12 +301,12 @@ class _$_Listening extends _Listening {
   }
 }
 
-abstract class _Listening extends VoiceState {
-  const factory _Listening(final String data) = _$_Listening;
-  const _Listening._() : super._();
+abstract class VoiceListening extends VoiceState {
+  const factory VoiceListening(final String data) = _$VoiceListening;
+  const VoiceListening._() : super._();
 
   String get data;
   @JsonKey(ignore: true)
-  _$$_ListeningCopyWith<_$_Listening> get copyWith =>
+  _$$VoiceListeningCopyWith<_$VoiceListening> get copyWith =>
       throw _privateConstructorUsedError;
 }

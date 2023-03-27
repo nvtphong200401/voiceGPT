@@ -9,8 +9,8 @@ part 'voice_notifier.freezed.dart';
 @freezed
 class VoiceState with _$VoiceState {
   const VoiceState._();
-  const factory VoiceState.stop() = _Stop;
-  const factory VoiceState.listening(String data) = _Listening;
+  const factory VoiceState.stop() = VoiceStop;
+  const factory VoiceState.listening(String data) = VoiceListening;
 }
 
 class VoiceNotifier extends StateNotifier<VoiceState> {
@@ -18,21 +18,30 @@ class VoiceNotifier extends StateNotifier<VoiceState> {
 
   final SpeechToText _speechToText = SpeechToText();
 
-  Future<bool> initialize() async {
-    final permission = await _speechToText.initialize(debugLogging: true);
-    log('something here');
+  Future<bool> initialize(String locale) async {
+    final permission = await _speechToText.initialize(
+      debugLogging: true,
+      onStatus: (status) {
+        if (status == SpeechToText.doneStatus || status == SpeechToText.notListeningStatus) {
+          log('stop listening');
+          state = const VoiceState.stop();
+        }
+      },
+    );
+
     if (permission) {
-      log('here');
+      state = const VoiceState.listening('');
       _speechToText.listen(
-        onResult: (result) =>
-            state = VoiceState.listening(result.recognizedWords),
+        listenMode: ListenMode.dictation,
+        localeId: locale,
+        onResult: (result) => state = VoiceState.listening(result.recognizedWords),
       );
     }
     return permission;
   }
 
   Future<void> stop() async {
-    state = const VoiceState.stop();
-    _speechToText.stop();
+    await _speechToText.stop();
+    // state = const VoiceState.stop();
   }
 }
