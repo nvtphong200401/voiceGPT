@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:voicegpt/application/shared/providers.dart';
@@ -24,66 +25,7 @@ class ChatScreen extends ConsumerWidget {
         //   Icon(Icons.menu)
         // ],
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: ListTile(
-                title: Consumer(builder: (context, ref, child) {
-                  return DropdownButton(
-                    alignment: Alignment.bottomCenter,
-                    icon: const SizedBox.shrink(),
-                    underline: const SizedBox.shrink(),
-                    value: ref.watch(settingStateProvider.select((value) => value.language)),
-                    items: countries.entries
-                        .map((e) => DropdownMenuItem(
-                              value: e.key,
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    e.value,
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                  const SizedBox(
-                                    width: 32,
-                                  ),
-                                  Text(
-                                    e.key,
-                                    style: const TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ))
-                        .toList(),
-                    onChanged: (newValue) {
-                      if (newValue != null) {
-                        ref.read(settingStateProvider.notifier.select(
-                            (value) => value.state = value.state.copyWith(language: newValue)));
-                      }
-                    },
-                  );
-                }),
-              ),
-            ),
-            ListTile(
-              leading: Consumer(builder: (context, ref, child) {
-                final autoRead = ref.watch(settingStateProvider.select((value) => value.autoRead));
-                return Switch(
-                  value: autoRead,
-                  onChanged: (newValue) => ref.read(settingStateProvider.notifier
-                      .select((value) => value.state = value.state.copyWith(autoRead: newValue))),
-                );
-              }),
-              title: const Text(
-                'Auto read message',
-                style: TextStyle(fontSize: 16),
-              ),
-            )
-          ],
-        ),
-      ),
+      endDrawer: const SettingDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -113,6 +55,88 @@ class ChatScreen extends ConsumerWidget {
           const SizedBox(
             height: 20,
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class SettingDrawer extends StatelessWidget {
+  const SettingDrawer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          ListTile(
+            trailing: const SizedBox.shrink(),
+            title: Consumer(builder: (context, ref, child) {
+              return DropdownButton(
+                isExpanded: true,
+                alignment: Alignment.bottomCenter,
+                icon: const SizedBox.shrink(),
+                underline: const SizedBox.shrink(),
+                value: ref.watch(settingStateProvider.select((value) => value.language)),
+                items: countries.entries
+                    .map((e) => DropdownMenuItem(
+                          value: e.key,
+                          child: Row(
+                            children: [
+                              Text(
+                                e.key,
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              const Spacer(),
+                              Image.asset(
+                                e.value,
+                                width: 30,
+                                height: 30,
+                              ),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (newValue) {
+                  if (newValue != null) {
+                    ref.read(settingStateProvider.notifier
+                        .select((value) => value.state = value.state.copyWith(language: newValue)));
+                  }
+                },
+              );
+            }),
+          ),
+          Consumer(builder: (context, ref, child) {
+            return ListTile(
+              onTap: () {
+                ref.read(settingStateProvider.notifier.select((value) =>
+                    value.state = value.state.copyWith(autoRead: !value.state.autoRead)));
+              },
+              leading: const Text(
+                'Auto read message',
+                style: TextStyle(fontSize: 16),
+              ),
+              title: Switch(
+                value: ref.watch(settingStateProvider.select((value) => value.autoRead)),
+                onChanged: (newValue) {
+                  ref.read(settingStateProvider.notifier.select((value) =>
+                      value.state = value.state.copyWith(autoRead: !value.state.autoRead)));
+                },
+              ),
+            );
+          }),
+          const ListTile(
+            leading: Text(
+              'Delete conversation',
+              style: TextStyle(fontSize: 16, color: Colors.red),
+            ),
+            title: Icon(
+              CupertinoIcons.trash,
+              color: Colors.red,
+            ),
+          )
         ],
       ),
     );
