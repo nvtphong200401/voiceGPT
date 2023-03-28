@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:markdown_widget/widget/markdown.dart';
+import 'package:voicegpt/application/shared/providers.dart';
 import 'package:voicegpt/service/shared/providers.dart';
 
 class AnimationText extends HookConsumerWidget {
@@ -13,28 +14,34 @@ class AnimationText extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useAutomaticKeepAlive();
+    final shouldAnimate =
+        ref.watch(chatNotifierProvider).state.when(loading: (_) => false, data: (data) => true);
+
     final animationController = useAnimationController(
         duration: Duration(milliseconds: message.length * 10), keys: [message]);
     useEffect(() {
       final scrollController = ref.read(scrollProvider);
-      onTypingResult() {
-        // if (scrollController.position == scrollController.offset) {
-        scrollController.animateTo(scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-        // }
+      if (shouldAnimate) {
+        onTypingResult() {
+          // if (scrollController.position == scrollController.offset) {
+          scrollController.animateTo(scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+          // }
+        }
+
+        animationController.forward();
+        animationController.addListener(onTypingResult);
+
+        return () {
+          animationController.removeListener(onTypingResult);
+          // animationController.dispose();
+        };
+      } else {
+        animationController.animateTo(1);
       }
-
-      animationController.forward();
-      animationController.addListener(onTypingResult);
-
-      return () {
-        animationController.removeListener(onTypingResult);
-        // animationController.dispose();
-      };
-      //   }
-      // });
-      // return null;
+      return null;
     }, [animationController]);
+
     final typingText = CurveTween(
       curve: Curves.linear,
     ).animate(animationController);
@@ -47,7 +54,7 @@ class AnimationText extends HookConsumerWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
-            children: content(message.characters.take(count).toString()),
+            children: content(shouldAnimate ? message.characters.take(count).toString() : message),
           );
         },
       ),
@@ -64,17 +71,10 @@ class AnimationText extends HookConsumerWidget {
 
       list.add(HookBuilder(builder: (context) {
         final code = text.substring(codeBlock.start, codeBlock.end).trim();
-        final animationController =
-            useAnimationController(duration: Duration(milliseconds: code.length * 10));
-        animationController.forward();
-        durationTime += code.length * 100;
-        return FadeTransition(
-          opacity: animationController,
-          child: MarkdownWidget(
-            data: code,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-          ),
+        return MarkdownWidget(
+          data: code,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
         );
       }));
 

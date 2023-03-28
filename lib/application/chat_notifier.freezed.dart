@@ -14,6 +14,19 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+ChatState _$ChatStateFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType']) {
+    case 'loading':
+      return _Loading.fromJson(json);
+    case 'data':
+      return _Data.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'ChatState',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
+}
+
 /// @nodoc
 mixin _$ChatState {
   @optionalTypeArgs
@@ -54,6 +67,7 @@ mixin _$ChatState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -104,11 +118,16 @@ class __$$_LoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Loading extends _Loading {
-  const _$_Loading({final List<MessageModel> oldMessages = const []})
+  const _$_Loading(
+      {final List<MessageModel> oldMessages = const [], final String? $type})
       : _oldMessages = oldMessages,
+        $type = $type ?? 'loading',
         super._();
+
+  factory _$_Loading.fromJson(Map<String, dynamic> json) =>
+      _$$_LoadingFromJson(json);
 
   final List<MessageModel> _oldMessages;
   @override
@@ -118,6 +137,9 @@ class _$_Loading extends _Loading {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_oldMessages);
   }
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
 
   @override
   String toString() {
@@ -133,6 +155,7 @@ class _$_Loading extends _Loading {
                 .equals(other._oldMessages, _oldMessages));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_oldMessages));
@@ -204,11 +227,20 @@ class _$_Loading extends _Loading {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LoadingToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Loading extends ChatState {
   const factory _Loading({final List<MessageModel> oldMessages}) = _$_Loading;
   const _Loading._() : super._();
+
+  factory _Loading.fromJson(Map<String, dynamic> json) = _$_Loading.fromJson;
 
   List<MessageModel> get oldMessages;
   @JsonKey(ignore: true)
@@ -246,10 +278,14 @@ class __$$_DataCopyWithImpl<$Res> extends _$ChatStateCopyWithImpl<$Res, _$_Data>
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$_Data extends _Data {
-  _$_Data({required final List<MessageModel> messages})
+  _$_Data({required final List<MessageModel> messages, final String? $type})
       : _messages = messages,
+        $type = $type ?? 'data',
         super._();
+
+  factory _$_Data.fromJson(Map<String, dynamic> json) => _$$_DataFromJson(json);
 
   final List<MessageModel> _messages;
   @override
@@ -258,6 +294,9 @@ class _$_Data extends _Data {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_messages);
   }
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
 
   @override
   String toString() {
@@ -272,6 +311,7 @@ class _$_Data extends _Data {
             const DeepCollectionEquality().equals(other._messages, _messages));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_messages));
@@ -343,11 +383,20 @@ class _$_Data extends _Data {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DataToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Data extends ChatState {
   factory _Data({required final List<MessageModel> messages}) = _$_Data;
   _Data._() : super._();
+
+  factory _Data.fromJson(Map<String, dynamic> json) = _$_Data.fromJson;
 
   List<MessageModel> get messages;
   @JsonKey(ignore: true)

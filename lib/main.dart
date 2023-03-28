@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voicegpt/application/shared/providers.dart';
 import 'package:voicegpt/core/constants.dart';
 import 'package:voicegpt/presentation/chat/chat_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final pref = await SharedPreferences.getInstance();
+  runApp(ProviderScope(
+    overrides: [prefProvider.overrideWithValue(pref)],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

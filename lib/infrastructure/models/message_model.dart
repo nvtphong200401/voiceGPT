@@ -11,6 +11,5 @@ class MessageModel with _$MessageModel {
     required String content,
   }) = _MessageModel;
 
-  factory MessageModel.fromJson(Map<String, dynamic> json) =>
-      _$MessageModelFromJson(json);
+  factory MessageModel.fromJson(Map<String, dynamic> json) => _$MessageModelFromJson(json);
 }

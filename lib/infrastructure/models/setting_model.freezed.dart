@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+SettingModel _$SettingModelFromJson(Map<String, dynamic> json) {
+  return _SettingModel.fromJson(json);
+}
+
 /// @nodoc
 mixin _$SettingModel {
   bool get autoRead => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SettingModelCopyWith<SettingModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -101,10 +106,13 @@ class __$$_SettingModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_SettingModel extends _SettingModel {
   const _$_SettingModel({this.autoRead = true, this.language = 'en-US'})
       : super._();
+
+  factory _$_SettingModel.fromJson(Map<String, dynamic> json) =>
+      _$$_SettingModelFromJson(json);
 
   @override
   @JsonKey()
@@ -129,6 +137,7 @@ class _$_SettingModel extends _SettingModel {
                 other.language == language));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, autoRead, language);
 
@@ -137,12 +146,22 @@ class _$_SettingModel extends _SettingModel {
   @pragma('vm:prefer-inline')
   _$$_SettingModelCopyWith<_$_SettingModel> get copyWith =>
       __$$_SettingModelCopyWithImpl<_$_SettingModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_SettingModelToJson(
+      this,
+    );
+  }
 }
 
 abstract class _SettingModel extends SettingModel {
   const factory _SettingModel({final bool autoRead, final String language}) =
       _$_SettingModel;
   const _SettingModel._() : super._();
+
+  factory _SettingModel.fromJson(Map<String, dynamic> json) =
+      _$_SettingModel.fromJson;
 
   @override
   bool get autoRead;
