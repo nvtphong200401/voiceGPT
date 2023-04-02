@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voicegpt/application/shared/providers.dart';
@@ -7,6 +8,8 @@ import 'package:voicegpt/presentation/chat/chat_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
+
   final pref = await SharedPreferences.getInstance();
   runApp(ProviderScope(
     overrides: [prefProvider.overrideWithValue(pref)],
