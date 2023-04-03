@@ -15,7 +15,7 @@ class ChatItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
       if (ref.read(settingStateProvider.select((value) => value.autoRead))) {
-        if (message.content != '_') {
+        if (message.content != '_' && message.role == 'assistant') {
           ref.read(textToSpeechProvider).speak(message.content);
         }
       }
