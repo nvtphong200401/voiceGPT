@@ -15,10 +15,12 @@ class ChatItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
       if (ref.read(settingStateProvider.select((value) => value.autoRead))) {
-        ref.read(textToSpeechProvider).speak(message.content);
+        if (message.content != '_') {
+          ref.read(textToSpeechProvider).speak(message.content);
+        }
       }
       return null;
-    }, const []);
+    }, [message.content]);
     return Container(
       padding: const EdgeInsets.all(12.0),
       color: message.role == 'user' ? cardColor : scaffoldBackgroundColor,
@@ -43,7 +45,8 @@ class ChatItem extends HookConsumerWidget {
           AnimationText(message: message.content),
           if (message.role == 'assistant')
             GestureDetector(
-              onTap: () => ref.read(textToSpeechProvider).speak(message.content),
+              onTap: () =>
+                  ref.read(textToSpeechProvider).speak(message.content),
               child: const Icon(
                 Icons.play_circle_fill_outlined,
                 color: Colors.red,
