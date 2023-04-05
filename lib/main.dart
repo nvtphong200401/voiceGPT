@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -27,16 +25,15 @@ class MyApp extends HookWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
-      final appLifeCycleReactor = useMemoized(() {
-        final AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
-        return AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
-      });
-      useEffect(() {
-        appLifeCycleReactor.listenToAppStateChanges();
-        return null;
-      }, [appLifeCycleReactor]);
-    }
+    final appLifeCycleReactor = useMemoized(() {
+      final AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+      return AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
+    });
+    useEffect(() {
+      appLifeCycleReactor.listenToAppStateChanges();
+      return null;
+    }, [appLifeCycleReactor]);
+
     return ProviderScope(
       child: MaterialApp(
         title: 'Flutter Demo',

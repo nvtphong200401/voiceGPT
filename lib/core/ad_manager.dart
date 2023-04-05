@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AppOpenAdManager {
-  String adUnitId = 'ca-app-pub-7689891360488659/3407691490';
+  String adUnitId = Platform.isAndroid
+      ? 'ca-app-pub-7689891360488659/3407691490'
+      : 'ca-app-pub-7689891360488659/7136055650';
 
   AppOpenAd? _appOpenAd;
   bool _isShowingAd = false;
