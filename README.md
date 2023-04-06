@@ -1,5 +1,7 @@
 # VoiceGPT
 
+## Nguyen Van Tan Phong - 19127646
+
 ## What I have done
  - Chat with ChatGPT
  - Using microphone with speech to text
