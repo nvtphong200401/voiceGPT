@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voicegpt/application/chat_notifier.dart';
@@ -37,4 +38,8 @@ final textToSpeechProvider = Provider.autoDispose(
     textToSpeech.setPitch(1.0);
     return textToSpeech;
   },
+);
+
+final bannerAdProvider = StateProvider.autoDispose<BannerAd?>(
+  (ref) => null,
 );

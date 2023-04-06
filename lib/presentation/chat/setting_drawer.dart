@@ -111,7 +111,7 @@ class SettingDrawer extends ConsumerWidget {
               CupertinoIcons.trash,
               color: Colors.red,
             ),
-          )
+          ),
         ],
       ),
     );

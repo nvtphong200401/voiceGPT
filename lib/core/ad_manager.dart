@@ -34,28 +34,28 @@ class AppOpenAdManager {
 
   void showAdIfAvailable() {
     if (!isAdAvailable) {
-      // print('Tried to show ad before available.');
+      print('Tried to show ad before available.');
       loadAd();
       return;
     }
     if (_isShowingAd) {
-      // print('Tried to show ad while already showing an ad.');
+      print('Tried to show ad while already showing an ad.');
       return;
     }
     // Set the fullScreenContentCallback and show the ad.
     _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (ad) {
         _isShowingAd = true;
-        // print('$ad onAdShowedFullScreenContent');
+        print('$ad onAdShowedFullScreenContent');
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        // print('$ad onAdFailedToShowFullScreenContent: $error');
+        print('$ad onAdFailedToShowFullScreenContent: $error');
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;
       },
       onAdDismissedFullScreenContent: (ad) {
-        // print('$ad onAdDismissedFullScreenContent');
+        print('$ad onAdDismissedFullScreenContent');
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;
@@ -81,6 +81,18 @@ class AppLifecycleReactor {
     // we're not already showing an app open ad.
     if (appState == AppState.foreground) {
       appOpenAdManager.showAdIfAvailable();
+    }
+  }
+}
+
+class AdHelper {
+  static String get bannerAdUnitId {
+    if (Platform.isAndroid) {
+      return 'ca-app-pub-7689891360488659/9959645641';
+    } else if (Platform.isIOS) {
+      return 'ca-app-pub-7689891360488659/2709455985';
+    } else {
+      throw UnsupportedError('Unsupported platform');
     }
   }
 }
