@@ -28,7 +28,6 @@ class ChatScreen extends HookConsumerWidget {
             ref.read(bannerAdProvider.notifier).state = ad as BannerAd;
           },
           onAdFailedToLoad: (ad, err) {
-            print('Failed to load a banner ad: ${err.message}');
             ad.dispose();
           },
         ),

@@ -1,0 +1,62 @@
+name: CD
+on:
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  deploy_ios:
+    name: deploy iOS
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: "develop"
+    - run: |
+          ls ${{ github.workspace }}
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: "stable"
+        cache: true
+    - run: |
+          flutter --version
+          flutter pub get
+    - name: run fastlane
+      working-directory: ./ios
+      run: |
+          pod install
+          fastlane release
+
+  build_and_deploy_android:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: "develop"
+    - run: |
+          ls ${{ github.workspace }}
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: "stable"
+        cache: true
+    - run: flutter pub get
+    - name: Test
+      run: flutter test
+    - name: Build
+      run: flutter build apk --release
+
+    - name: Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.5.0
+      with:
+        appId: ${{secrets.FIREBASE_ANDROID_APPID}}
+        serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+        groups: ieltsready-tester
+        releaseNotes: "${{ github.event.pull_request_review_comment.comment.body }}"
+        file: build/app/outputs/flutter-apk/app-release.apk
+    
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'New version of mobile app has been deployed. hehe !!'

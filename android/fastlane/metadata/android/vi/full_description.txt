@@ -1,0 +1,1 @@
+Ứng dụng sử dụng API của chatGPT nhưng lần này bạn có thể nghe và nói với chatGPT

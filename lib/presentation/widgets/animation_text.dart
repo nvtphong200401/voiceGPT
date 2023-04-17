@@ -64,7 +64,6 @@ class AnimationText extends HookConsumerWidget {
   List<Widget> content(String text) {
     final list = <Widget>[];
     List<InlineSpan> textSpan = <InlineSpan>[];
-    int durationTime = 0;
     text.splitMapJoin(RegExp('(```)(.|\n)*?(```)'), onMatch: (codeBlock) {
       list.add(Text.rich(TextSpan(children: textSpan)));
       textSpan = <InlineSpan>[];
