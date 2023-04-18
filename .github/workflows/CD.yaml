@@ -40,23 +40,26 @@ jobs:
         channel: "stable"
         cache: true
     - run: flutter pub get
-    - name: Test
-      run: flutter test
-    - name: Build
-      run: flutter build apk --release
+    - name: Run fastlane
+      working-directory: ./android
+      run: fastlane deploy
+    # - name: Test
+    #   run: flutter test
+    # - name: Build
+    #   run: flutter build apk --release
 
-    - name: Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.5.0
-      with:
-        appId: ${{secrets.FIREBASE_ANDROID_APPID}}
-        serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-        groups: ieltsready-tester
-        releaseNotes: "${{ github.event.pull_request_review_comment.comment.body }}"
-        file: build/app/outputs/flutter-apk/app-release.apk
+    # - name: Firebase App Distribution
+    #   uses: wzieba/Firebase-Distribution-Github-Action@v1.5.0
+    #   with:
+    #     appId: ${{secrets.FIREBASE_ANDROID_APPID}}
+    #     serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+    #     groups: ieltsready-tester
+    #     releaseNotes: "${{ github.event.pull_request_review_comment.comment.body }}"
+    #     file: build/app/outputs/flutter-apk/app-release.apk
     
-    - name: Discord notification
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
-      with:
-        args: 'New version of mobile app has been deployed. hehe !!'
+    # - name: Discord notification
+    #   env:
+    #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+    #   uses: Ilshidur/action-discord@master
+    #   with:
+    #     args: 'New version of mobile app has been deployed. hehe !!'

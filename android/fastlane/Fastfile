@@ -16,19 +16,16 @@
 default_platform(:android)
 
 platform :android do
-  desc "Increment version code"
-  lane :increment_vc do
-  increment_version_code(
-    gradle_file_path: "./app/build.gradle",
-    version_code: 7
-  )
-  end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     # gradle(task: "clean bundleRelease")
+    # gradle(
+    #   task: "assemble",
+    #   build_type: "Release"
+    # )
     upload_to_play_store(
-      json_key: json_key_file,
+      json_key: "./fastlane/pc-api-6888173054009922748-785-17b87061f83e.json",
       track: "internal",
       release_status: "draft",
       skip_upload_changelogs: true,
