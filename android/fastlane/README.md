@@ -15,14 +15,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android increment_vc
-
-```sh
-[bundle exec] fastlane android increment_vc
-```
-
-Increment version code
-
 ### android deploy
 
 ```sh
