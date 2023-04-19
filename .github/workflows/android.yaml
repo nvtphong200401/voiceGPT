@@ -36,7 +36,7 @@ jobs:
           flutter build appbundle
       - name: run fastlane
         working-directory: ./android
-        run: fastlane deploy
+        run: bundle exec fastlane deploy
       # Make appbundle downloadable
       # - name: Upload artefato
       #   uses: actions/upload-artifact@v2

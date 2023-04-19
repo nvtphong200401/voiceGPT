@@ -27,8 +27,8 @@ platform :android do
     upload_to_play_store(
       json_key: "./fastlane/playstore_key.json",
       track: "internal",
-      release_status: "draft",
-      skip_upload_changelogs: true,
+      # release_status: "draft",
+      # skip_upload_changelogs: true,
       aab: "../build/app/outputs/bundle/release/app-release.aab"
     )
   end
