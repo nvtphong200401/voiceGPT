@@ -34,9 +34,15 @@ jobs:
       - run: | 
           flutter pub get
           flutter build appbundle
-      - name: run fastlane
-        working-directory: ./android
-        run: bundle exec fastlane deploy
+      - name: bundle install before run fastlane
+        run: bundle install --path vendor/bundle
+        working-directory: android
+
+      - name: Run fastlane
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: "deploy"
+          subdirectory: android
       # Make appbundle downloadable
       # - name: Upload artefato
       #   uses: actions/upload-artifact@v2
