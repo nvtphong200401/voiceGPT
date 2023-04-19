@@ -34,9 +34,6 @@ jobs:
       - run: | 
           flutter pub get
           flutter build appbundle
-      - name: bundle install before run fastlane
-        run: bundle install --path vendor/bundle
-        working-directory: android
 
       - name: Run fastlane
         uses: maierj/fastlane-action@v3.0.0
