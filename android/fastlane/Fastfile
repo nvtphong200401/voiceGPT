@@ -25,7 +25,7 @@ platform :android do
     #   build_type: "Release"
     # )
     upload_to_play_store(
-      json_key: "./fastlane/pc-api-6888173054009922748-785-17b87061f83e.json",
+      json_key_data: "./fastlane/playstore_key.json",
       track: "internal",
       release_status: "draft",
       skip_upload_changelogs: true,
