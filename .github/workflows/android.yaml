@@ -34,12 +34,9 @@ jobs:
       - run: | 
           flutter pub get
           flutter build appbundle
-
-      - name: Run fastlane
-        uses: maierj/fastlane-action@v3.0.0
-        with:
-          lane: "deploy"
-          subdirectory: android
+      - name: run fastlane
+        working-directory: ./android
+        run: fastlane deploy
       # Make appbundle downloadable
       # - name: Upload artefato
       #   uses: actions/upload-artifact@v2
