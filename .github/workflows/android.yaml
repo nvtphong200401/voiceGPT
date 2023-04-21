@@ -12,14 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
           cache: true
-      # - uses: subosito/flutter-action@v1
-      #   with:
-      #     channel: ${{env.FLUTTER_CHANNEL}}
-      #     flutter-version: ${{env.FLUTTER_VERSION}}
 
       # Creating the key.properties file
       - run: |
