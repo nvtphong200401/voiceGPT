@@ -1,3 +1,3 @@
 library voicegpt;
 
-export 'main.dart';
+export './presentation/chat/chat_screen.dart';
