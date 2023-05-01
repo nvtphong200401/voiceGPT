@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../infrastructure/chat_repo.dart';
 import '../infrastructure/models/message_model.dart';
@@ -30,11 +30,11 @@ class ChatNotifier extends ChangeNotifier {
       ,
       this._sharedPreferences) {
     state = ChatState.fromJson(jsonDecode(
-        _sharedPreferences.getString('messages') ??
+        _sharedPreferences.read<String?>('messages') ??
             '{"oldMessages": [], "runtimeType": "loading"}'));
   }
   final ChatRepository _chatRepository;
-  final SharedPreferences _sharedPreferences;
+  final GetStorage _sharedPreferences;
   late ChatState state;
 
   Future sendMessage(String txtMsg) async {
@@ -65,13 +65,13 @@ class ChatNotifier extends ChangeNotifier {
     state = ChatState.data(messages: newData);
     notifyListeners();
     // save it to local storage
-    _sharedPreferences.setString('messages',
+    _sharedPreferences.write('messages',
         jsonEncode(ChatState.loading(oldMessages: newData).toJson()));
   }
 
   Future clearMessage() async {
     state = ChatState.data(messages: []);
-    _sharedPreferences.setString(
+    _sharedPreferences.write(
         'messages', '{"oldMessages": [], "runtimeType": "loading"}');
     notifyListeners();
   }

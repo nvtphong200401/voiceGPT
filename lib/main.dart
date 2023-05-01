@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/constants.dart';
 import 'voicegpt.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  final pref = await SharedPreferences.getInstance();
-  runApp(MyApp(
-    sharedPreferences: pref,
-  ));
+  GetStorage.init();
+  runApp(const MyApp());
 }
 
 class MyApp extends HookWidget {
-  const MyApp({super.key, required this.sharedPreferences});
-  final SharedPreferences sharedPreferences;
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -38,9 +34,7 @@ class MyApp extends HookWidget {
             scaffoldBackgroundColor: scaffoldBackgroundColor,
             appBarTheme: AppBarTheme(color: cardColor)),
         home: GestureDetector(
-          child: ChatScreen(
-            sharedPreferences: sharedPreferences,
-          ),
+          child: const ChatScreen(),
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         ),
       ),

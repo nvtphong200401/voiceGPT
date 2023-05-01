@@ -16,7 +16,7 @@ class SettingDrawer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(textToSpeechProvider, (prev, next) {});
     ref.listen(settingStateProvider, (prev, next) {
-      ref.read(prefProvider).setString('settings', jsonEncode(next.toJson()));
+      ref.read(prefProvider).write('settings', jsonEncode(next.toJson()));
     });
     return Drawer(
       child: ListView(
@@ -29,7 +29,8 @@ class SettingDrawer extends ConsumerWidget {
                 alignment: Alignment.bottomCenter,
                 icon: const SizedBox.shrink(),
                 underline: const SizedBox.shrink(),
-                value: ref.watch(settingStateProvider.select((value) => value.language)),
+                value: ref.watch(
+                    settingStateProvider.select((value) => value.language)),
                 items: countries.entries
                     .map((e) => DropdownMenuItem(
                           value: e.key,
@@ -51,8 +52,9 @@ class SettingDrawer extends ConsumerWidget {
                     .toList(),
                 onChanged: (newValue) {
                   if (newValue != null) {
-                    ref.read(settingStateProvider.notifier
-                        .select((value) => value.state = value.state.copyWith(language: newValue)));
+                    ref.read(settingStateProvider.notifier.select((value) =>
+                        value.state =
+                            value.state.copyWith(language: newValue)));
                   }
                 },
               );
@@ -62,17 +64,20 @@ class SettingDrawer extends ConsumerWidget {
             return ListTile(
               onTap: () {
                 ref.read(settingStateProvider.notifier.select((value) =>
-                    value.state = value.state.copyWith(autoRead: !value.state.autoRead)));
+                    value.state =
+                        value.state.copyWith(autoRead: !value.state.autoRead)));
               },
               leading: const Text(
                 'Auto read message',
                 style: TextStyle(fontSize: 16),
               ),
               title: Switch(
-                value: ref.watch(settingStateProvider.select((value) => value.autoRead)),
+                value: ref.watch(
+                    settingStateProvider.select((value) => value.autoRead)),
                 onChanged: (newValue) {
-                  ref.read(settingStateProvider.notifier.select((value) =>
-                      value.state = value.state.copyWith(autoRead: !value.state.autoRead)));
+                  ref.read(settingStateProvider.notifier.select((value) => value
+                          .state =
+                      value.state.copyWith(autoRead: !value.state.autoRead)));
                 },
               ),
             );
@@ -86,14 +91,17 @@ class SettingDrawer extends ConsumerWidget {
                       CupertinoIcons.trash,
                       color: Colors.red,
                     ),
-                    title: const Text('The conversation will be clear and cannot reverse'),
+                    title: const Text(
+                        'The conversation will be clear and cannot reverse'),
                     actions: [
                       OutlinedButton(
                           onPressed: () => Navigator.of(context).pop(),
                           child: const Text('Cancel')),
                       OutlinedButton(
                           onPressed: () {
-                            ref.read(chatNotifierProvider.notifier).clearMessage();
+                            ref
+                                .read(chatNotifierProvider.notifier)
+                                .clearMessage();
                             Navigator.of(context).pop();
                           },
                           child: const Text(
