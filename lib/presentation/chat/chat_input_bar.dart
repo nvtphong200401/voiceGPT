@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:voicegpt/application/voice_notifier.dart';
-import 'package:voicegpt/presentation/chat/voice_item.dart';
-import 'package:voicegpt/service/shared/providers.dart';
 
 import '../../application/shared/providers.dart';
+import '../../application/voice_notifier.dart';
 import '../../core/constants.dart';
+import '../../service/shared/providers.dart';
+import 'voice_item.dart';
 
 class ChatInputBar extends HookConsumerWidget {
   const ChatInputBar({
@@ -26,8 +26,10 @@ class ChatInputBar extends HookConsumerWidget {
         if (focusNode.hasFocus) {
           Future.delayed(const Duration(milliseconds: 300), () {
             log('scroll max');
-            scrollController.animateTo(scrollController.position.maxScrollExtent,
-                duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+            scrollController.animateTo(
+                scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut);
           });
         }
       }
@@ -38,7 +40,9 @@ class ChatInputBar extends HookConsumerWidget {
 
     void onSendMessage() {
       if (messageController.text.isEmpty) return;
-      ref.read(chatNotifierProvider.notifier).sendMessage(messageController.text);
+      ref
+          .read(chatNotifierProvider.notifier)
+          .sendMessage(messageController.text);
       messageController.clear();
     }
 

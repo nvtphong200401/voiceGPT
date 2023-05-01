@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voicegpt/infrastructure/chat_repo.dart';
 
+import '../infrastructure/chat_repo.dart';
 import '../infrastructure/models/message_model.dart';
 
 part 'chat_notifier.freezed.dart';
@@ -20,7 +20,8 @@ class ChatState with _$ChatState {
   factory ChatState.data({
     required List<MessageModel> messages,
   }) = _Data;
-  factory ChatState.fromJson(Map<String, dynamic> json) => _$ChatStateFromJson(json);
+  factory ChatState.fromJson(Map<String, dynamic> json) =>
+      _$ChatStateFromJson(json);
 }
 
 class ChatNotifier extends ChangeNotifier {
@@ -28,8 +29,9 @@ class ChatNotifier extends ChangeNotifier {
       this._chatRepository //) : super(const ChatState.loading());
       ,
       this._sharedPreferences) {
-    state = ChatState.fromJson(jsonDecode(_sharedPreferences.getString('messages') ??
-        '{"oldMessages": [], "runtimeType": "loading"}'));
+    state = ChatState.fromJson(jsonDecode(
+        _sharedPreferences.getString('messages') ??
+            '{"oldMessages": [], "runtimeType": "loading"}'));
   }
   final ChatRepository _chatRepository;
   final SharedPreferences _sharedPreferences;
@@ -37,17 +39,25 @@ class ChatNotifier extends ChangeNotifier {
 
   Future sendMessage(String txtMsg) async {
     final message = MessageModel(role: 'user', content: txtMsg);
-    final messages = [...state.when(loading: (ms) => ms, data: (data) => data), message];
+    final messages = [
+      ...state.when(loading: (ms) => ms, data: (data) => data),
+      message
+    ];
     // loading
-    state = ChatState.loading(
-        oldMessages: [...messages, const MessageModel(role: 'assistant', content: '_')]);
+    state = ChatState.loading(oldMessages: [
+      ...messages,
+      const MessageModel(role: 'assistant', content: '_')
+    ]);
     notifyListeners();
     // send message
     final res = await _chatRepository.sendMessage(messages);
     // new message arrived
-    final newData = [
+    final newData = <MessageModel>[
       ...messages,
-      res.fold((l) => const MessageModel(role: 'assistant', content: 'An error occur'), (r) {
+      res.fold(
+          (l) =>
+              const MessageModel(role: 'assistant', content: 'An error occur'),
+          (r) {
         return r;
       }),
     ];
@@ -55,13 +65,14 @@ class ChatNotifier extends ChangeNotifier {
     state = ChatState.data(messages: newData);
     notifyListeners();
     // save it to local storage
-    _sharedPreferences.setString(
-        'messages', jsonEncode(ChatState.loading(oldMessages: newData).toJson()));
+    _sharedPreferences.setString('messages',
+        jsonEncode(ChatState.loading(oldMessages: newData).toJson()));
   }
 
   Future clearMessage() async {
     state = ChatState.data(messages: []);
-    _sharedPreferences.setString('messages', '{"oldMessages": [], "runtimeType": "loading"}');
+    _sharedPreferences.setString(
+        'messages', '{"oldMessages": [], "runtimeType": "loading"}');
     notifyListeners();
   }
 }

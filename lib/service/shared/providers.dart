@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:voicegpt/service/chat_service.dart';
+
+import '../chat_service.dart';
 
 // final dioOptions = Provider.autoDispose<BaseOptions>((ref) {
 //   return BaseOptions(

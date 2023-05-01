@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:voicegpt/infrastructure/models/choice_model.dart';
-import 'package:voicegpt/infrastructure/models/message_model.dart';
-import 'package:voicegpt/infrastructure/models/usage_model.dart';
+import 'package:nvtphong200401_19127646_voicegpt/infrastructure/models/choice_model.dart';
+import 'package:nvtphong200401_19127646_voicegpt/infrastructure/models/message_model.dart';
+import 'package:nvtphong200401_19127646_voicegpt/infrastructure/models/usage_model.dart';
 
 part 'chat_response_model.freezed.dart';
 part 'chat_response_model.g.dart';

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:voicegpt/application/shared/providers.dart';
+import 'package:nvtphong200401_19127646_voicegpt/application/shared/providers.dart';
 
 import '../animation/ripple_animation.dart';
 
 class VoiceItem extends HookConsumerWidget {
-  const VoiceItem({super.key, required this.messageController, this.onSendMessage});
+  const VoiceItem(
+      {super.key, required this.messageController, this.onSendMessage});
   final TextEditingController messageController;
   final void Function()? onSendMessage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final voiceAnimation = useAnimationController(duration: const Duration(seconds: 2));
+    final voiceAnimation =
+        useAnimationController(duration: const Duration(seconds: 2));
 
     final listening = ref.watch(voiceNotifierProvider).when(stop: () {
       return false;
@@ -21,8 +23,8 @@ class VoiceItem extends HookConsumerWidget {
       return true;
     });
 
-    final bool emptyMessage =
-        useListenableSelector(messageController, () => messageController.text.trim().isEmpty);
+    final bool emptyMessage = useListenableSelector(
+        messageController, () => messageController.text.trim().isEmpty);
 
     return !emptyMessage && !listening
         ? InkWell(

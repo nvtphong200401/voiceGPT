@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:voicegpt/application/shared/providers.dart';
-import 'package:voicegpt/core/constants.dart';
-import 'package:voicegpt/infrastructure/models/message_model.dart';
 
+import '../../application/shared/providers.dart';
+import '../../core/constants.dart';
+import '../../infrastructure/models/message_model.dart';
 import '../widgets/animation_text.dart';
 
 class ChatItem extends HookConsumerWidget {

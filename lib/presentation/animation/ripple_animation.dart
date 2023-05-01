@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:voicegpt/application/shared/providers.dart';
+import 'package:nvtphong200401_19127646_voicegpt/application/shared/providers.dart';
 
 class CurveWave extends Curve {
   const CurveWave();
@@ -60,7 +60,8 @@ class RipplesAnimation extends StatefulHookConsumerWidget {
   final void Function(bool)? onPressed;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _RipplesAnimationState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _RipplesAnimationState();
   // @override
   // _RipplesAnimationState createState() => _RipplesAnimationState();
 }
@@ -68,8 +69,9 @@ class RipplesAnimation extends StatefulHookConsumerWidget {
 class _RipplesAnimationState extends ConsumerState<RipplesAnimation> {
   @override
   Widget build(BuildContext context) {
-    final isAnimating =
-        ref.watch(voiceNotifierProvider).when(stop: () => false, listening: (data) => true);
+    final isAnimating = ref
+        .watch(voiceNotifierProvider)
+        .when(stop: () => false, listening: (data) => true);
 
     return GestureDetector(
       onTap: () {
@@ -78,9 +80,8 @@ class _RipplesAnimationState extends ConsumerState<RipplesAnimation> {
           ref.read(voiceNotifierProvider.notifier).stop();
         } else {
           widget.controller.repeat();
-          ref
-              .read(voiceNotifierProvider.notifier)
-              .initialize(ref.read(settingStateProvider.select((value) => value.language)));
+          ref.read(voiceNotifierProvider.notifier).initialize(
+              ref.read(settingStateProvider.select((value) => value.language)));
         }
         // widget.onPressed?.call(isAnimating.value);
       },
