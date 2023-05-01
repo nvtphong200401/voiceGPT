@@ -3,7 +3,6 @@ description: ChatGPT Plugin
 homepage: https://github.com/nvtphong200401/voicegpt
 
 publish_to: 'none' 
-
 version: 1.0.3+11
 
 environment:
