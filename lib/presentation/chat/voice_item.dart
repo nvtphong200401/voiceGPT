@@ -42,8 +42,11 @@ class VoiceItem extends HookConsumerWidget {
           );
   }
 
-  buildIcon(data) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 7.5),
-        child: Icon(data, size: 20, color: Colors.white),
-      );
+  buildIcon(data) => Builder(builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 7.5),
+          child: Icon(data,
+              size: 20, color: Theme.of(context).textTheme.bodyLarge?.color),
+        );
+      });
 }

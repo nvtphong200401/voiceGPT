@@ -54,50 +54,49 @@ class ChatInputBar extends HookConsumerWidget {
       });
     });
 
-    return Material(
+    return Container(
       color: Theme.of(context).appBarTheme.backgroundColor,
-      child: SizedBox(
-        height: 50,
-        child: Stack(
-          alignment: Alignment.centerRight,
-          children: [
-            // Expanded(
-            // child:
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 60),
-              child: Consumer(builder: (context, ref, child) {
-                return TextFormField(
-                  focusNode: focusNode,
-                  enabled: ref
-                      .watch(voiceNotifierProvider)
-                      .when(stop: () => true, listening: (data) => false),
-                  onFieldSubmitted: (value) {
-                    onSendMessage.call();
-                  },
-                  controller: messageController,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration.collapsed(
-                    hintText: "How can I help you",
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
-                );
-              }),
-            ),
-            // ),
-            Positioned(
-              bottom: 0,
-              top: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 7.5),
-                child: VoiceItem(
-                  messageController: messageController,
-                  onSendMessage: onSendMessage,
+      height: 50,
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          // Expanded(
+          // child:
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 60),
+            child: Consumer(builder: (context, ref, child) {
+              return TextFormField(
+                focusNode: focusNode,
+                enabled: ref
+                    .watch(voiceNotifierProvider)
+                    .when(stop: () => true, listening: (data) => false),
+                onFieldSubmitted: (value) {
+                  onSendMessage.call();
+                },
+                controller: messageController,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge?.color),
+                decoration: const InputDecoration.collapsed(
+                  hintText: "How can I help you",
+                  hintStyle: TextStyle(color: Colors.grey),
                 ),
+              );
+            }),
+          ),
+          // ),
+          Positioned(
+            bottom: 0,
+            top: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 7.5),
+              child: VoiceItem(
+                messageController: messageController,
+                onSendMessage: onSendMessage,
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
