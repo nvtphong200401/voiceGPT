@@ -5,7 +5,6 @@ import 'package:nvtphong200401_19127646_voicegpt/presentation/chat/chat_item.dar
 import 'package:nvtphong200401_19127646_voicegpt/presentation/chat/setting_drawer.dart';
 import 'package:nvtphong200401_19127646_voicegpt/service/shared/providers.dart';
 
-import '../../core/constants.dart';
 import 'chat_input_bar.dart';
 
 class ChatScreen extends HookConsumerWidget {
@@ -34,7 +33,7 @@ class ChatScreen extends HookConsumerWidget {
                     .state
                     .when(loading: (value) => value, data: (data) => data);
                 return Material(
-                  color: scaffoldBackgroundColor,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   child: ListView.builder(
                     // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                     controller: ref.watch(scrollProvider),
