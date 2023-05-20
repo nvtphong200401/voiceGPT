@@ -6,7 +6,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../application/shared/providers.dart';
 import '../../application/voice_notifier.dart';
-import '../../core/constants.dart';
 import '../../service/shared/providers.dart';
 import 'voice_item.dart';
 
@@ -56,7 +55,7 @@ class ChatInputBar extends HookConsumerWidget {
     });
 
     return Material(
-      color: cardColor,
+      color: Theme.of(context).appBarTheme.backgroundColor,
       child: SizedBox(
         height: 50,
         child: Stack(

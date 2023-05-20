@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nvtphong200401_19127646_voicegpt/application/shared/providers.dart';
-import 'package:nvtphong200401_19127646_voicegpt/core/constants.dart';
 import 'package:nvtphong200401_19127646_voicegpt/presentation/chat/chat_item.dart';
 import 'package:nvtphong200401_19127646_voicegpt/presentation/chat/setting_drawer.dart';
 import 'package:nvtphong200401_19127646_voicegpt/service/shared/providers.dart';
 
+import '../../core/constants.dart';
 import 'chat_input_bar.dart';
 
 class ChatScreen extends HookConsumerWidget {
@@ -15,8 +15,10 @@ class ChatScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        // cardColor,
+        foregroundColor: Theme.of(context).textTheme.bodyLarge?.color,
         title: const Text('Chat GPT'),
-        leading: Image.asset(appLogo),
         // actions: [
         //   Icon(Icons.menu)
         // ],
@@ -31,16 +33,19 @@ class ChatScreen extends HookConsumerWidget {
                     .watch(chatNotifierProvider)
                     .state
                     .when(loading: (value) => value, data: (data) => data);
-                return ListView.builder(
-                  // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                  controller: ref.watch(scrollProvider),
-                  // childrenDelegate: SliverChildBuilderDelegate((context, index) {
-                  //   return ChatItem(message: chatMessage[index]);
-                  // }, childCount: chatMessage.length),
-                  itemBuilder: (context, index) => ChatItem(
-                    message: chatMessage[index],
+                return Material(
+                  color: scaffoldBackgroundColor,
+                  child: ListView.builder(
+                    // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                    controller: ref.watch(scrollProvider),
+                    // childrenDelegate: SliverChildBuilderDelegate((context, index) {
+                    //   return ChatItem(message: chatMessage[index]);
+                    // }, childCount: chatMessage.length),
+                    itemBuilder: (context, index) => ChatItem(
+                      message: chatMessage[index],
+                    ),
+                    itemCount: chatMessage.length,
                   ),
-                  itemCount: chatMessage.length,
                 );
               },
               child: const Center(

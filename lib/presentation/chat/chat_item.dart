@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/shared/providers.dart';
-import '../../core/constants.dart';
 import '../../infrastructure/models/message_model.dart';
 import '../widgets/animation_text.dart';
 
@@ -23,7 +22,9 @@ class ChatItem extends HookConsumerWidget {
     }, [message.content]);
     return Container(
       padding: const EdgeInsets.all(12.0),
-      color: message.role == 'user' ? cardColor : scaffoldBackgroundColor,
+      color: message.role == 'user'
+          ? Theme.of(context).appBarTheme.backgroundColor
+          : Theme.of(context).scaffoldBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,8 +35,8 @@ class ChatItem extends HookConsumerWidget {
               color: Colors.white,
             ),
           if (message.role == 'assistant')
-            Image.asset(
-              appLogo,
+            Image.network(
+              'https://raw.githubusercontent.com/nvtphong200401/voicegpt/develop/assets/openai_logo.jpg',
               width: 20,
               height: 20,
             ),
